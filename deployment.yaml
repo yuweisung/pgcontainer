@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pgc
+  name: pgc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgc
+  template:
+    metadata:
+      labels:
+        app: pgc
+    spec:
+      containers:
+      - image: yuwsung1/pgcontainer:0.0.2-SNAPSHOT
+        name: pgcontainer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgc-service
+spec:
+  selector:
+    app: pgc
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer
