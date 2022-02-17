@@ -1,0 +1,45 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'solutions.datanerd'
+version = '0.0.2-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootBuildImage{
+	imageName = "yuwsung1/${project.name}:${project.version}"
+	publish = true
+	docker {
+		publishRegistry {
+			username = "yuwsung1"
+			password = "&8D6DR1*eArY"
+			email = "yuwei.sung@gmail.com"
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
